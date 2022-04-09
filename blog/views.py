@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from blog.models import Post
 from blog.forms import PostForm
 
+
 def post_list(request):
     posts = Post.objects.all()
     context = {'items': posts}
@@ -30,3 +31,16 @@ def post_new(request):
             return redirect('post_detail', post_pk=post.pk)
 
 
+def post_edit(request, post_pk):
+    post = get_object_or_404(Post, pk=post_pk)
+    if request.method == 'GET':
+        form = PostForm(instance=post)
+        return render(request, 'blog/post_edit.html', {'form': form})
+    else:
+        form = PostForm(request.POST, instance=post)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.created_date = datetime.now()
+            post.publish_date = datetime.now()
+            post.save()
+            return redirect('post_detail', post_pk=post.pk)
