@@ -6,9 +6,16 @@ from blog.forms import PostForm
 
 
 def post_list(request):
-    posts = Post.objects.all()
+    posts = Post.objects.all().filter(published=True)
     context = {'items': posts}
     return render(request, 'blog/post_list.html', context)
+
+
+def post_draft(request):
+    posts = Post.objects.all().filter(published=False)
+    context = {'items': posts}
+    return render(request, 'blog/post_list.html', context)
+
 
 
 def post_detail(request, post_pk):

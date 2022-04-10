@@ -10,28 +10,37 @@
         text-decoration: none;
     }
 
-    a:hover{
+    a:hover {
         color: green;
     }
 </style>
-    <div>
-        <p style="font-size: 35px; text-align: center">Teach Me Skils</p>
-    </div>
-    <div style="margin: 20px 0 20px 50px">
-        <a href="{% url 'post_new' %}" style="font-size: 15px; text-align: center; border: 1px solid; border-radius: 20px; padding: 10px;">
-            Create new post
-        </a>
-    </div>
-    {% for post in items %}
-    <div style="margin: 20px; display: inline-block">
-        <div style="border: 1px solid; padding: 10px">
-            <div>
-                <a href="{% url 'post_detail' post_pk=post.pk %}">{{ post.title }}</a>
-            </div>
-            <div>{{ post.text }}</div>
-            <div>{{ post.publish_date }}</div>
+<div>
+    <p style="font-size: 35px; text-align: center">Teach Me Skils</p>
+</div>
+<div style="margin: 20px 0 20px 50px">
+    <a href="{% url 'post_new' %}"
+       style="font-size: 15px; text-align: center; border: 1px solid; border-radius: 20px; padding: 10px;">
+        Create new post
+    </a>
+    <a href="{% url 'post_draft' %}"
+       style="margin-left: 10px; font-size: 15px; text-align: center; border: 1px solid; border-radius: 20px; padding: 10px;">
+        Draft posts
+    </a>
+    <a href="{% url 'post_list' %}"
+       style="margin-left: 10px; font-size: 15px; text-align: center; border: 1px solid; border-radius: 20px; padding: 10px;">
+        Published posts
+    </a>
+</div>
+{% for post in items %}
+<div style="margin: 20px; display: inline-block">
+    <div style="border: 1px solid; padding: 10px">
+        <div>
+            <a href="{% url 'post_detail' post_pk=post.pk %}">{{ post.title }}</a>
         </div>
+        <div>{{ post.text }}</div>
+        <div>{{ post.publish_date }}</div>
     </div>
-    {% endfor %}
+</div>
+{% endfor %}
 </body>
 </html>

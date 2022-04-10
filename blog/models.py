@@ -14,6 +14,9 @@ class Post(models.Model):
     publish_date = models.DateTimeField(
         verbose_name='Publish Date', auto_now_add=True
     )
+    published = models.BooleanField(
+        verbose_name='Published', default=False
+    )
 
     def __str__(self):
         return f'{self.title}'
