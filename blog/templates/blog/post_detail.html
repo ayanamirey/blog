@@ -18,13 +18,22 @@
     <a href="{% url 'post_list' %}" style="font-size: 35px; text-align: center;">Teach Me Skils</a>
 </div>
 <div style="text-align: center; margin: 20px 0">
-    <a href="{% url 'post_list' %}" style="margin: 5px;font-size: 15px; text-align: center; border: 1px solid; border-radius: 20px; padding: 10px;">
+    <a href="{% url 'post_list' %}"
+       style="margin: 5px;font-size: 15px; text-align: center; border: 1px solid; border-radius: 20px; padding: 10px;">
         Back to post
     </a>
-    <a href="{% url 'post_edit' post_pk=post.pk %}" style="margin: 5px;font-size: 15px; text-align: center; border: 1px solid; border-radius: 20px; padding: 10px;">
+    <a href="{% url 'post_edit' post_pk=post.pk %}"
+       style="margin: 5px;font-size: 15px; text-align: center; border: 1px solid; border-radius: 20px; padding: 10px;">
         Edit
     </a>
-    <a href="{% url 'post_delete' post_pk=post.pk %}" style="margin: 5px;font-size: 15px; text-align: center; border: 1px solid; border-radius: 20px; padding: 10px;">
+    {% if post.published == False %}
+    <a href="{% url 'post_published' post_pk=post.pk %}"
+       style="margin: 5px;font-size: 15px; text-align: center; border: 1px solid; border-radius: 20px; padding: 10px;">
+        Publish
+    </a>
+    {% endif %}
+    <a href="{% url 'post_delete' post_pk=post.pk %}"
+       style="margin: 5px;font-size: 15px; text-align: center; border: 1px solid; border-radius: 20px; padding: 10px;">
         Delete
     </a>
 </div>
@@ -38,5 +47,12 @@
         <div>{{ post.text }}</div>
     </div>
 </div>
+
+{% for i in comments %}
+<div>
+        {{ i }}
+</div>
+{% endfor %}
+
 </body>
 </html>

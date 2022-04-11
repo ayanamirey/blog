@@ -20,3 +20,17 @@ class Post(models.Model):
 
     def __str__(self):
         return f'{self.title}'
+
+
+class Comments(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    text = models.TextField(
+        verbose_name='Text'
+    )
+    publish_date = models.DateTimeField(
+        verbose_name='Publish Date', auto_now_add=True
+    )
+
+
+    def __str__(self):
+        return f'{self.text}'

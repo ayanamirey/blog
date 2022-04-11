@@ -1,27 +1,32 @@
 from datetime import datetime
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
-from blog.models import Post
+from blog.models import Post, Comments
 from blog.forms import PostForm
 
 
 def post_list(request):
     posts = Post.objects.all().filter(published=True)
-    context = {'items': posts}
-    return render(request, 'blog/post_list.html', context)
+    return render(request, 'blog/post_list.html', {'items': posts})
 
 
 def post_draft(request):
     posts = Post.objects.all().filter(published=False)
-    context = {'items': posts}
-    return render(request, 'blog/post_list.html', context)
+    return render(request, 'blog/post_list.html', {'items': posts})
 
+
+def post_published(request, post_pk):
+    post = Post.objects.get(pk=post_pk)
+    post.published = True
+    post.save()
+    return render(request, 'blog/post_detail.html', {'post': post})
 
 
 def post_detail(request, post_pk):
     post = Post.objects.get(pk=post_pk)
-    context = {'post': post}
-    return render(request, 'blog/post_detail.html', context)
+    comments = Comments.objects.filter(pk=post_pk)
+    return render(request, 'blog/post_detail.html', {'post': post,
+                                                     'comments': comments})
 
 
 def post_new(request):
