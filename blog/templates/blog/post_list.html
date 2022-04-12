@@ -31,16 +31,40 @@
         Published posts
     </a>
 </div>
-{% for post in items %}
-<div style="margin: 20px; display: inline-block">
-    <div style="border: 1px solid; padding: 10px">
-        <div>
-            <a href="{% url 'post_detail' post_pk=post.pk %}">{{ post.title }}</a>
+
+<!--{% if counter > 0 %}-->
+
+<!--{% endif %}-->
+
+<div style="display: flex; justify-content: space-between;">
+    <div>
+        {% for post in items %}
+        <div style="margin: 20px; display: inline-block">
+            <div style="border: 1px solid; padding: 10px">
+                <div>
+                    <a href="{% url 'post_detail' post_pk=post.pk %}">{{ post.title }}</a>
+                </div>
+                <div>{{ post.text }}</div>
+                <div>{{ post.publish_date }}</div>
+            </div>
         </div>
-        <div>{{ post.text }}</div>
-        <div>{{ post.publish_date }}</div>
+        {% endfor %}
     </div>
+
+    <div style="max-width: 100px;width: 100% ;display: flex; flex-direction: column;border: 1px solid #7e7676; border-radius: 3px; padding: 10px">
+        {% for i in category %}
+        <a href="{% url 'categories' category_pk=i.pk %}"
+           style="border-bottom: 1px solid #7e7676; padding-bottom: 5px; margin-bottom: 5px">{{ i }}</a>
+        {% endfor %}
+    </div>
+
 </div>
-{% endfor %}
+
+<div>
+    <p style="font-size: 20px">
+        Количество постов: {{counter }}
+    </p>
+</div>
+
 </body>
 </html>

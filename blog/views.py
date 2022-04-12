@@ -1,13 +1,24 @@
 from datetime import datetime
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
-from blog.models import Post, Comments
+from blog.models import Post, Comments, Category
 from blog.forms import PostForm
 
 
 def post_list(request):
     posts = Post.objects.all().filter(published=True)
-    return render(request, 'blog/post_list.html', {'items': posts})
+    category = Category.objects.all()
+    counter = posts.count()
+    return render(request, 'blog/post_list.html', {'items': posts,
+                                                   'category': category,
+                                                   'counter': counter})
+
+
+def categories(request, category_pk):
+    posts = Post.objects.filter(category=category_pk)
+    category = Category.objects.all()
+    return render(request, 'blog/post_list.html', {'items': posts,
+                                                   'category': category})
 
 
 def post_draft(request):
@@ -28,7 +39,8 @@ def post_detail(request, post_pk):
     counter = comments.count()
     return render(request, 'blog/post_detail.html', {'post': post,
                                                      'comments': comments,
-                                                     'counter': counter})
+                                                     'counter': counter
+                                                     })
 
 
 def post_new(request):
