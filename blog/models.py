@@ -1,3 +1,5 @@
+from tkinter import CASCADE
+
 from django.db import models
 
 
@@ -31,6 +33,5 @@ class Comments(models.Model):
         verbose_name='Publish Date', auto_now_add=True
     )
 
-
     def __str__(self):
-        return f'{self.text}'
+        return self.text
