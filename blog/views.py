@@ -24,9 +24,11 @@ def post_published(request, post_pk):
 
 def post_detail(request, post_pk):
     post = Post.objects.get(pk=post_pk)
-    comments = Comments.objects.filter(post=post)
+    comments = Comments.objects.filter(post=post_pk)
+    counter = comments.count()
     return render(request, 'blog/post_detail.html', {'post': post,
-                                                     'comments': comments})
+                                                     'comments': comments,
+                                                     'counter': counter})
 
 
 def post_new(request):
