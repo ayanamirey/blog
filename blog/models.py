@@ -32,6 +32,7 @@ class Comments(models.Model):
     publish_date = models.DateTimeField(
         verbose_name='Publish Date', auto_now_add=True
     )
+    author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.text
